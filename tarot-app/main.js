@@ -10,6 +10,7 @@ let autoRotate = true;
 
 // Inicializar la escena
 function init() {
+
     // Crear escena
     scene = new THREE.Scene();
     
@@ -58,7 +59,7 @@ function createBackTexture() {
     canvas.height = 712;
     const ctx = canvas.getContext('2d');
     
-    // Fondo con gradiente místico
+    // Fondo con gradiente
     const gradient = ctx.createRadialGradient(
         canvas.width / 2, canvas.height / 2, 0,
         canvas.width / 2, canvas.height / 2, canvas.width / 1.5
@@ -69,7 +70,7 @@ function createBackTexture() {
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    // Patrón de fondo sutil
+    // Patrón de fondo
     ctx.strokeStyle = 'rgba(138, 43, 226, 0.15)';
     ctx.lineWidth = 1;
     for (let i = 0; i < 20; i++) {
@@ -183,7 +184,7 @@ function createBackTexture() {
     return new THREE.CanvasTexture(canvas);
 }
 
-// Crear la geometría de la carta
+// Geometría de la carta
 function createCard() {
     cardGroup = new THREE.Group();
     
@@ -193,17 +194,17 @@ function createCard() {
     
     const geometry = new THREE.BoxGeometry(cardWidth, cardHeight, cardDepth);
     
-    // Crear textura del dorso
+    // Textura del dorso
     const backTexture = createBackTexture();
     
-    // AMBOS LADOS tienen la misma textura inicialmente
+    // Ambos lados tienen la misma textura inicialmente
     const materials = [
-        new THREE.MeshPhongMaterial({ color: 0x1a1a2e }), // lado derecho
-        new THREE.MeshPhongMaterial({ color: 0x1a1a2e }), // lado izquierdo
-        new THREE.MeshPhongMaterial({ color: 0x1a1a2e }), // arriba
-        new THREE.MeshPhongMaterial({ color: 0x1a1a2e }), // abajo
+        new THREE.MeshPhongMaterial({ color: 0x1a1a2e }),                 // lado derecho
+        new THREE.MeshPhongMaterial({ color: 0x1a1a2e }),                 // lado izquierdo
+        new THREE.MeshPhongMaterial({ color: 0x1a1a2e }),                 // arriba
+        new THREE.MeshPhongMaterial({ color: 0x1a1a2e }),                 // abajo
         new THREE.MeshPhongMaterial({ map: backTexture, shininess: 30 }), // frente
-        new THREE.MeshPhongMaterial({ map: backTexture, shininess: 30 }) // atrás
+        new THREE.MeshPhongMaterial({ map: backTexture, shininess: 30 })  // atrás
     ];
     
     const card = new THREE.Mesh(geometry, materials);
@@ -213,7 +214,7 @@ function createCard() {
     scene.add(cardGroup);
 }
 
-// Cargar imagen de la carta y aplicarla DESPUÉS del volteo
+// Cargar imagen de la carta y aplicarla después del volteo
 function loadCardImage(cardData) {
     const img = new Image();
     img.crossOrigin = "anonymous";
@@ -227,7 +228,7 @@ function loadCardImage(cardData) {
         // Dibujar la imagen
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         
-        // Borde blanco elegante
+        // Borde blanco
         ctx.strokeStyle = '#FFFFFF';
         ctx.lineWidth = 10;
         ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
@@ -241,11 +242,11 @@ function loadCardImage(cardData) {
         cardGroup.children[0].material[5].map = texture;
         cardGroup.children[0].material[5].needsUpdate = true;
         
-        console.log('✅ Imagen cargada:', cardData.image);
+        console.log('Imagen cargada:', cardData.image);
     };
     
     img.onerror = () => {
-        console.error('❌ Error al cargar:', cardData.image);
+        console.error('Error al cargar:', cardData.image);
     };
     
     img.src = cardData.image;
@@ -260,7 +261,7 @@ function handleCardClick() {
     
     // Obtener carta aleatoria
     currentCard = getRandomCard();
-    console.log('🎴 Carta seleccionada:', currentCard.name);
+    console.log('Carta seleccionada:', currentCard.name);
     
     // Animar volteo
     flipCard();
@@ -293,7 +294,7 @@ function flipCard() {
         cardGroup.scale.set(scale, scale, 1);
         cardGroup.position.y = Math.sin(progress * Math.PI) * 0.3;
         
-        // Cargar imagen cuando esté a mitad de la animación
+        // Cargar imagen cuando este a mitad de la animación
         if (progress > 0.5 && !imageLoaded) {
             imageLoaded = true;
             loadCardImage(currentCard);

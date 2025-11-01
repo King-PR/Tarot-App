@@ -14,7 +14,7 @@ body {
     position: relative;
 }
 
-/* Fondo animado con estrellas */
+/* Fondo con estrellas */
 body::before {
     content: '';
     position: fixed;
@@ -336,7 +336,7 @@ footer {
     }
 }
 
-/* Loading spinner (opcional para futuras mejoras) */
+/* Loading spinner (futuro?) */
 .loading {
     display: inline-block;
     width: 20px;

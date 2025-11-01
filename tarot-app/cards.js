@@ -1,4 +1,4 @@
-// Base de datos de cartas del tarot con mensajes matutinos
+// Base de datos de cartas de tarot (nombre, icono, mensaje, asset)
 export const tarotCards = [
     {
         id: 1,
@@ -98,7 +98,7 @@ export const tarotCards = [
     }
 ];
 
-// Función para obtener una carta aleatoria
+// Función para obtener carta aleatoria
 export function getRandomCard() {
     const randomIndex = Math.floor(Math.random() * tarotCards.length);
     return tarotCards[randomIndex];
