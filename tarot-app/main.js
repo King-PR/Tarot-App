@@ -165,7 +165,7 @@ function createFrontTexture(cardData) {
 
 // Crear la geometría de la carta
 function createCard() {
-    
+
     // Crear grupo para la carta
     cardGroup = new THREE.Group();
     
@@ -285,9 +285,13 @@ function showCardInfo() {
     const cardTitle = document.getElementById('card-title');
     const cardMessage = document.getElementById('card-message');
     const footer = document.querySelector('footer');
+    const canvas = document.getElementById('canvas-container');
     
     cardTitle.textContent = `${currentCard.emoji} ${currentCard.name}`;
     cardMessage.textContent = currentCard.message;
+    
+    // Marcar que ya se hizo click
+    canvas.classList.add('clicked');
     
     // Animación de aparición
     setTimeout(() => {
@@ -303,9 +307,7 @@ function resetCard() {
     isAnimating = true;
     
     const duration = 1500;
-    const startRotation = cardGroup.rotation.y; // Debería estar en π
-    
-    // Hacer 1 vuelta completa desde π hasta 2π (que es equivalente a 0, dorso visible)
+    const startRotation = cardGroup.rotation.y;
     const totalRotation = Math.PI * 2;
     const endRotation = startRotation + totalRotation;
     const startTime = Date.now();
@@ -313,7 +315,10 @@ function resetCard() {
     // Ocultar info
     const cardInfo = document.getElementById('card-info');
     const footer = document.querySelector('footer');
+    const canvas = document.getElementById('canvas-container');
+    
     cardInfo.classList.add('hidden');
+    canvas.classList.remove('clicked'); // Agregar esta línea
     
     function animateReset() {
         const now = Date.now();
