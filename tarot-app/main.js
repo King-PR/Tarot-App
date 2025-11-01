@@ -29,7 +29,7 @@ function init() {
     container.appendChild(renderer.domElement);
     
     // Añadir luces
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.3);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
     scene.add(ambientLight);
     
     const pointLight1 = new THREE.PointLight(0xffffff, 0.4);
